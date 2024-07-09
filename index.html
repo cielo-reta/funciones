@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funciones, Dominio y Rango</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .container {
+            display: flex;
+            width: 80%;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .sidebar {
+            width: 30%;
+            padding: 20px;
+            background-color: #f8f8f8;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #e0e0e0;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        ul li:hover {
+            background-color: #d0d0d0;
+        }
+        ul li.selected {
+            background-color: #1e90ff;
+            color: #fff;
+        }
+        .main-content {
+            width: 70%;
+            padding: 20px;
+        }
+        .feedback {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .practice-example {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .practice-example p {
+            margin: 5px 0;
+        }
+        .practice-example div {
+            margin-bottom: 10px;
+        }
+        .procedure {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .procedure h3 {
+            margin-top: 0;
+            color: #1e90ff;
+        }
+        .corner-image {
+            width: 100px;
+             height: 40%;
+            margin: 100px 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Funciones, Dominio y Rango</h1>
+        <p>Mucha suerte mi amor, si se puede tu puedes con esto y mas. ♥
+        Guyu y yo estamos super orgullosos de ti</p>
+        <img src="C:\Users\DellG315\Downloads\Escuela\WhatsApp Image 2024-07-01 at 7.01.35 PM.jpeg" alt="Imagen de funciones" class="corner-image">
+
+        <div class="sidebar">
+            <h2>Selecciona el Tipo de Función:</h2>
+            <ul id="function-types">
+                <li class="selected" data-type="lineal">Lineal</li>
+                <li data-type="cuadratica">Cuadrática</li>
+                <li data-type="racional">Racional</li>
+                <li data-type="exponencial">Exponencial</li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <div id="examples-container">
+                <!-- Ejemplos se mostrarán aquí -->
+            </div>
+            <div id="function-info">
+                <!-- Información sobre las funciones -->
+                <div id="info-lineal" class="function-info hidden">
+                    <h2>Funciones Lineales</h2>
+                    <p>Una función lineal tiene la forma general \( f(x) = mx + b \), donde \( m \) y \( b \) son constantes y \( x \) es la variable independiente.</p>
+                    <p>El dominio de una función lineal es todos los números reales, y el rango también es todos los números reales.</p>
+                </div>
+                <div id="info-cuadratica" class="function-info hidden">
+                    <h2>Funciones Cuadráticas</h2>
+                    <p>Una función cuadrática tiene la forma general \( f(x) = ax^2 + bx + c \), donde \( a \), \( b \), y \( c \) son constantes y \( x \) es la variable independiente.</p>
+                    <p>El dominio de una función cuadrática es todos los números reales, y el rango varía dependiendo de los valores de \( a \), \( b \), y \( c \).</p>
+                </div>
+                <div id="info-racional" class="function-info hidden">
+                    <h2>Funciones Racionales</h2>
+                    <p>Una función racional tiene la forma general \( f(x) = \frac{p(x)}{q(x)} \), donde \( p(x) \) y \( q(x) \) son polinomios y \( q(x) \neq 0 \).</p>
+                    <p>El dominio de una función racional incluye todos los números reales excepto aquellos que hacen que el denominador sea cero. El rango también varía dependiendo de la función específica.</p>
+                </div>
+                <div id="info-exponencial" class="function-info hidden">
+                    <h2>Funciones Exponenciales</h2>
+                    <p>Una función exponencial tiene la forma general \( f(x) = a^x \), donde \( a \) es una constante positiva y \( x \) es la variable independiente.</p>
+                    <p>El dominio de una función exponencial es todos los números reales, y el rango son todos los números reales positivos, dependiendo del valor de \( a \).</p>
+                </div>
+            </div>
+            <div class="feedback">
+                <button id="check-btn">Comprobar Respuestas</button>
+                <p id="feedback" class="hidden"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const functionTypes = ['lineal', 'cuadratica', 'racional', 'exponencial'];
+            const examples = {
+                lineal: [
+                    { id: 'example1', equation: 'f(x) = 2x + 3', correctDomain: 'todos los números reales', correctRange: 'todos los números reales' },
+                    { id: 'example2', equation: 'f(x) = -x + 1', correctDomain: 'todos los números reales', correctRange: 'todos los números reales' }
+                ],
+                cuadratica: [
+                    { id: 'example3', equation: 'f(x) = x^2', correctDomain: 'todos los números reales', correctRange: 'todos los números reales no negativos' },
+                    { id: 'example4', equation: 'f(x) = x^2 - 4', correctDomain: 'todos los números reales', correctRange: 'todos los números reales no menores que -4' }
+                ],
+                racional: [
+                    { id: 'example5', equation: 'f(x) = 1/x', correctDomain: 'todos los números reales excepto 0', correctRange: 'todos los números reales excepto 0' },
+                    { id: 'example6', equation: 'f(x) = (x+2)/(x-1)', correctDomain: 'todos los números reales excepto 1', correctRange: 'todos los números reales excepto 1' }
+                ],
+                exponencial: [
+                    { id: 'example7', equation: 'f(x) = 2^x', correctDomain: 'todos los números reales', correctRange: 'todos los números reales positivos' },
+                    { id: 'example8', equation: 'f(x) = e^x', correctDomain: 'todos los números reales', correctRange: 'todos los números reales positivos' }
+                ]
+            };
+
+            const functionTypesList = document.getElementById('function-types');
+            const examplesContainer = document.getElementById('examples-container');
+            const feedbackElement = document.getElementById('feedback');
+            const functionInfo = document.getElementById('function-info');
+
+            function showExamples(type) {
+                examplesContainer.innerHTML = '';
+                examples[type].forEach(example => {
+                    const exampleDiv = document.createElement('div');
+                    exampleDiv.classList.add('practice-example');
+                    exampleDiv.id = example.id;  // Añadir ID al div del ejemplo
+                    exampleDiv.innerHTML = `
+                        <p><strong>Función:</strong> ${example.equation}</p>
+                        <div>
+                            <label for="domain${example.id}">Dominio:</label>
+                            <input type="text" id="domain${example.id}" placeholder="e.g., ${example.correctDomain}">
+                        </div>
+                        <div>
+                            <label for="range${example.id}">Rango:</label>
+                            <input type="text" id="range${example.id}" placeholder="e.g., ${example.correctRange}">
+                        </div>
+                        <div class="procedure hidden">
+                            <h3>Procedimiento Correcto</h3>
+                            <p>Para determinar el <strong>dominio</strong> de ${example.equation}, consideramos que ${example.correctDomain} puede ser una entrada válida para \( x \).</p>
+                            <p>Para determinar el <strong>rango</strong>, notamos que ${example.equation} produce ${example.correctRange} como salida.</p>
+                        </div>
+                    `;
+                    examplesContainer.appendChild(exampleDiv);
+                });
+            }
+
+            function showFunctionInfo(type) {
+                const allFunctionInfo = functionInfo.querySelectorAll('.function-info');
+                allFunctionInfo.forEach(info => {
+                    info.classList.add('hidden');
+                });
+                const selectedInfo = functionInfo.querySelector(`#info-${type}`);
+                if (selectedInfo) {
+                    selectedInfo.classList.remove('hidden');
+                }
+            }
+
+            function hideAllProcedures() {
+                const procedures = examplesContainer.querySelectorAll('.procedure');
+                procedures.forEach(procedure => {
+                    procedure.classList.add('hidden');
+                });
+            }
+
+            function checkAnswers() {
+                let allCorrect = true;
+                const selectedType = functionTypesList.querySelector('.selected').dataset.type;
+                const selectedExamples = examples[selectedType];
+
+                selectedExamples.forEach(example => {
+                    const domainInput = document.getElementById(`domain${example.id}`).value.trim().toLowerCase();
+                    const rangeInput = document.getElementById(`range${example.id}`).value.trim().toLowerCase();
+
+                    if (domainInput !== example.correctDomain || rangeInput !== example.correctRange) {
+                        allCorrect = false;
+                        showProcedure(example.id);
+                    }
+                });
+
+                if (allCorrect) {
+                    feedbackElement.textContent = '¡Correcto! Todos los dominios y rangos son correctos.';
+                    feedbackElement.style.color = '#32cd32'; // Verde para correcto
+                } else {
+                    feedbackElement.textContent = 'Al menos una respuesta es incorrecta. Revisa los dominios y rangos.';
+                    feedbackElement.style.color = '#ff0000'; // Rojo para incorrecto
+                }
+
+                feedbackElement.classList.remove('hidden');
+            }
+
+            function showProcedure(id) {
+                const procedureDiv = document.querySelector(`#${id} .procedure`);
+                if (procedureDiv) {
+                    procedureDiv.classList.remove('hidden');
+                }
+            }
+
+            function setupEventListeners() {
+                functionTypesList.addEventListener('click', (e) => {
+                    if (e.target.tagName === 'LI') {
+                        const selectedType = e.target.dataset.type;
+                        functionTypesList.querySelectorAll('li').forEach(li => li.classList.remove('selected'));
+                        e.target.classList.add('selected');
+                        showExamples(selectedType);
+                        showFunctionInfo(selectedType);
+                        hideAllProcedures();
+                        feedbackElement.classList.add('hidden');
+                    }
+                });
+
+                document.getElementById('check-btn').addEventListener('click', checkAnswers);
+            }
+
+            setupEventListeners();
+            showExamples('lineal'); // Mostrar ejemplos de la categoría seleccionada por defecto
+            showFunctionInfo('lineal'); // Mostrar información de funciones lineales por defecto
+        });
+    </script>
+</body>
+</html>
